@@ -9,7 +9,7 @@
 #   --collect.settings.chromeFlags="--headless --no-sandbox" \ 
 #   --upload.target=temporary-public-storage autorun
 
-FROM node:lts-alpine
+FROM alpine:3
 
 LABEL maintainer="trion development GmbH <info@trion.de>"
 
@@ -32,7 +32,7 @@ ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
 RUN mkdir -p ${APP_DIR} && chown 1000 ${APP_DIR} && chmod a+w ${APP_DIR} \
   && mkdir -p /tmp/.config && chmod a+w /tmp/.config
-RUN apk --no-cache upgrade && apk add --no-cache chromium dumb-init
+RUN apk --no-cache upgrade && apk add --no-cache nodejs npm chromium dumb-init
 RUN npm install -g lighthouse @lhci/cli @lhci/server
 
 USER $USER_ID

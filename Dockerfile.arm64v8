@@ -5,7 +5,7 @@ ENV QEMU_URL https://github.com/balena-io/qemu/releases/download/v4.0.0%2Bbalena
 RUN apk add curl && curl -L ${QEMU_URL} | tar zxvf - -C . --strip-components 1
 
 
-FROM arm64v8/node:lts-alpine
+FROM alpine:3
 
 # Add QEMU
 COPY --from=builder qemu-aarch64-static /usr/bin
@@ -31,7 +31,7 @@ ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
 RUN mkdir -p ${APP_DIR} && chown 1000 ${APP_DIR} && chmod a+w ${APP_DIR} \
   && mkdir -p /tmp/.config && chmod a+w /tmp/.config
-RUN apk --no-cache upgrade && apk add --no-cache chromium dumb-init
+RUN apk --no-cache upgrade && apk add --no-cache nodejs npm chromium dumb-init
 RUN npm install -g lighthouse @lhci/cli @lhci/server
 
 USER $USER_ID

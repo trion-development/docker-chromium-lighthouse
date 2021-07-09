@@ -4,7 +4,7 @@ Docker image for Lighthouse and Chromium to use as CI container.
 
 Image on DockerHub: https://hub.docker.com/r/trion/chromium-lighthouse/
 
-Currently this image uses Node LTS (node:lts-alpine as base) distribution.
+Currently this image uses the latest Alpine distribution to get the latest chromium browser..
 
 # Usage Examples
 
