@@ -28,9 +28,11 @@ ENV HOME "$USER_HOME_DIR"
 WORKDIR $APP_DIR
 EXPOSE 4200
 
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+
 RUN mkdir -p ${APP_DIR} && chown 1000 ${APP_DIR} && chmod a+w ${APP_DIR} \
   && mkdir -p /tmp/.config && chmod a+w /tmp/.config
-RUN apk --no-cache upgrade && apk add --no-cache chromium
+RUN apk --no-cache upgrade && apk add --no-cache chromium dumb-init
 RUN npm install -g lighthouse @lhci/cli @lhci/server
 
 USER $USER_ID

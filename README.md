@@ -6,16 +6,27 @@ Image on DockerHub: https://hub.docker.com/r/trion/chromium-lighthouse/
 
 Currently this image uses Node LTS (node:lts-alpine as base) distribution.
 
-# Usage
+# Usage Examples
 
-Examples:
+Run lighthouse
 
 ```
 docker run --rm -u $(id -u) -v $(pwd):/app trion/chromium-lighthouse lighthouse https://www.google.de  --chrome-flags="--headless --no-sandbox"
 ```
 
+Run lhci
+
 ```
-docker run --rm lhci --collect.url="http://www.bom.gov.au/tas/forecasts/hobart.shtml"  --collect.settings.chromeFlags="--headless --no-sandbox" --upload.target=temporary-public-storage autorun
+docker run --rm trion/chromium-lighthouse lhci --collect.url="https://www.google.de"  --collect.settings.chromeFlags="--headless --no-sandbox" --upload.target=temporary-public-storage autorun
+```
+
+Run lhci locally with output to filesystem
+
+```
+docker run --rm -u $(id -u) -v $(pwd):/app trion/chromium-lighthouse lhci \
+--collect.staticDistDir="/app/dist" --collect.isSinglePageApplication=true \
+--collect.settings.chromeFlags="--headless --no-sandbox" \
+--upload.target=filesystem --upload.outputDir=/app/lighthouse/report autorun
 ```
 
 ## ARM64 / mac M1
